@@ -1,16 +1,82 @@
-package game_rpg;
+import java.util.*;
 
-public class Main {
+class Main{
+  public static void main(String[] args){
 
-    public static void main(String[] args) {
+    while(true){
+      System.out.printf("\n *---------------------------------------* ");
+      System.out.printf("\n |                TRIFORCE               | ");
+      System.out.printf("\n *---------------------------------------* ");
+      System.out.printf("\n |       [1]. JOGAR                      | ");
+      System.out.printf("\n |       [2]. SAIR                       | ");
+      System.out.printf("\n *---------------------------------------* ");
+
+      Scanner teclado = new Scanner(System.in);
+
+      Random r = new Random();
+      int result = r.nextInt(10) + 1;
+      //System.out.printf("\n%d", result);
+
+      System.out.printf("\n\n  Digite sua escolha: ");
+      
+      int respostaMenuPrincipal = teclado.nextInt();
+
+      if (respostaMenuPrincipal == 1){
+        int i = 1;
         
-        System.out.println("\nBEM VINDO AO TRIFORCE\n");
+        System.out.printf("\n Digite a quantidade de jogadores: ");
         
-        System.out.println("\nFaça a sua escolha:");
+        int numero_jogador=teclado.nextInt();
+
+        Batalha b = new Batalha();
         
-        System.out.println("\n1 - Criar Novo Personagem");
-        System.out.println("2 - Carregar Personagem");
-        System.out.println("3 - Sair do Game\n");
+        while(true){ 
+          if (i == (numero_jogador + 1)){
+            break;
+          }
+
+          System.out.printf("\n *---------------------------------------* ");
+          System.out.printf("\n |                JOGADOR %d              | ", i);
+          System.out.printf("\n *---------------------------------------* ");
+          System.out.printf("\n |       [1]. CRIAR NOVO PERSONAGEM      | ");
+          System.out.printf("\n |       [2]. CARREGAR PERSONAGEM        | ");
+          System.out.printf("\n |       [3]. EDITAR PERSONAGEM          | ");
+          System.out.printf("\n |       [4]. SAIR                       | ");
+          System.out.printf("\n *---------------------------------------* ");
+
+          System.out.printf("\n\n  Digite sua escolha: ");
+      
+          int respostaMenuSecundario = teclado.nextInt();
+
+          if (respostaMenuSecundario == 1){
+            b.criarPersonagem(); //criou arena b
+          }
+          else if (respostaMenuSecundario == 2){
+            System.out.printf("\n Carregando Personagem ");
+          }
+          else if (respostaMenuSecundario == 3){
+            System.out.printf("\n Editar Personagem ");
+          }
+          else{
+            break;
+          }
+          i++; 
+        }
+
+        System.out.printf("\n Começando Partida ");
+
+        b.treta();
+
+      }
+      else {
+        System.out.printf("\n SAINDO DO JOGO...");
+        break;
+      
+      }
+      
     }
-    
+
+  
+  }
+
 }
