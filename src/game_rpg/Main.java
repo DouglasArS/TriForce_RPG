@@ -1,3 +1,5 @@
+package game_rpg;
+
 import java.util.*;
 
 class Main{
