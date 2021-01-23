@@ -1,11 +1,12 @@
-package game_rpg;
-
 import java.util.*;
 
 class Main{
   public static void main(String[] args){
 
     while(true){
+      
+      Sistema.limparTela();
+
       System.out.printf("\n *---------------------------------------* ");
       System.out.printf("\n |                TRIFORCE               | ");
       System.out.printf("\n *---------------------------------------* ");
@@ -14,10 +15,6 @@ class Main{
       System.out.printf("\n *---------------------------------------* ");
 
       Scanner teclado = new Scanner(System.in);
-
-      Random r = new Random();
-      int result = r.nextInt(10) + 1;
-      //System.out.printf("\n%d", result);
 
       System.out.printf("\n\n  Digite sua escolha: ");
       
@@ -36,6 +33,8 @@ class Main{
           if (i == (numero_jogador + 1)){
             break;
           }
+
+          Sistema.limparTela();
 
           System.out.printf("\n *---------------------------------------* ");
           System.out.printf("\n |                JOGADOR %d              | ", i);
@@ -65,15 +64,12 @@ class Main{
           i++; 
         }
 
-        System.out.printf("\n Começando Partida ");
-
-        b.treta();
+        b.luta();
 
       }
       else {
         System.out.printf("\n SAINDO DO JOGO...");
         break;
-      
       }
       
     }
