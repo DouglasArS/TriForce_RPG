@@ -223,8 +223,17 @@ public class Batalha implements FuncionalidadesBatalha{
         System.out.printf("\n *---------------------------------------* ");
 
         System.out.printf("\n Digite sua escolha: ");
-        int escolha = teclado.nextInt();
-  
+        int escolha;
+        
+        //tratamento de erro da escolha de ação do personagem:
+        try{
+          escolha = teclado.nextInt();
+        }catch (InputMismatchException e){
+          System.out.printf("\n\n   VALOR INVALIDO");
+          Sistema.esperar();
+          i--;
+          break;
+        }
 
         // Escolhendo Atacar
         if (escolha == 1){ 
@@ -329,7 +338,12 @@ public class Batalha implements FuncionalidadesBatalha{
     try{
       tribo = teclado.nextInt();
     } catch (InputMismatchException e) {
-      System.out.printf("\n\n   VALOR INVALIDO");
+      System.out.printf("\n\n   TRIBO INVALIDO");
+      return false;
+    }
+
+    if ((tribo < 1) || (tribo > 3)){
+      System.out.printf("\n\n   TRIBO INVALIDO");
       return false;
     }
 
@@ -346,7 +360,22 @@ public class Batalha implements FuncionalidadesBatalha{
     System.out.printf("\n *----------------------------------------* ");
     
     System.out.printf("\n\n Digite sua classe: ");
-    int classe = teclado.nextInt();// input classe
+
+    int classe;
+
+    //tratamento de erro do input da classe:
+    try{
+      classe = teclado.nextInt();
+    } catch (InputMismatchException e) {
+      System.out.printf("\n\n   CLASSE INVALIDA");
+      
+      return false;
+    }
+
+    if ((classe < 1) || (classe > 3)){
+      System.out.printf("\n\n   CLASSE INVALIDA");
+      return false;
+    }
 
     // Criando e Inicializando o p
     if (classe == 1){
