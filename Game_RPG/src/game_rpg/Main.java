@@ -34,7 +34,7 @@ class Main{
         System.out.printf("\n Digite a quantidade de jogadores: ");
 
         int numero_jogador;
-
+        //tratamento de erro
         try{
           numero_jogador = teclado.nextInt();
         } catch (InputMismatchException e) {
@@ -65,13 +65,14 @@ class Main{
           System.out.printf("\n\n  Digite sua escolha: ");
             
           int respostaMenuSecundario;
-           
+          //tratamento de erro
           try{
             respostaMenuSecundario = teclado.nextInt();
           } catch (InputMismatchException e) {
-            System.out.printf("\n\n   VALOR INVALIDO");
+            System.out.printf("\n\n  VALOR INVALIDO");
+            System.out.printf("\n\n  VOLTANDO PARA O MENU PRINCIPAL");
             Sistema.esperar();
-            continue;
+            break;
           }  
 
           if (respostaMenuSecundario == 1){
