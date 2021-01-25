@@ -43,7 +43,7 @@ class Main{
           Sistema.esperar();
           continue;
         }
-        
+        //tratamento de erro
         if (numero_jogador < 2){
           System.out.printf("\n\n  NUMERO DE JOGADORES INSUFICIENTE");
           System.out.printf("\n\n   VOLTANDO PARA MENU PRINCIPAL");
@@ -52,6 +52,8 @@ class Main{
         }
 
         Batalha b = new Batalha();
+        //tratamento de erro
+        boolean personagemCarregados = true;
 
         while(true){ 
           if (i == (numero_jogador + 1)){
@@ -78,12 +80,18 @@ class Main{
           } catch (InputMismatchException e) {
             System.out.printf("\n\n  VALOR INVALIDO");
             System.out.printf("\n\n  VOLTANDO PARA O MENU PRINCIPAL");
+            personagemCarregados = false;
             Sistema.esperar();
             break;
           }  
 
           if (respostaMenuSecundario == 1){
-            b.criarPersonagem(); //criou arena b
+            if (b.criarPersonagem() == false){
+              System.out.printf("\n\n   VOLTANDO PARA O MENU DO JOGADOR %d", i);
+              Sistema.esperar();
+              i--;
+            }
+
           }
           else if (respostaMenuSecundario == 2){
             System.out.printf("\n Carregando Personagem ");
@@ -91,13 +99,16 @@ class Main{
           else if (respostaMenuSecundario == 3){
             System.out.printf("\n Editar Personagem ");
           }
-          else{
+          else if (respostaMenuSecundario == 4){
             break;
           }
+
           i++; 
         }
-
-        b.luta();
+        //tratamento de erro
+        if (personagemCarregados){
+          b.luta(); 
+        }
 
       }
       else if (respostaMenuPrincipal == 2) {
