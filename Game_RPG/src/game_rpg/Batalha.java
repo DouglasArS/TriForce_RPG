@@ -1,8 +1,8 @@
 /*O QUE FALTA:
-Ajeitar o aleatorio da nova partida
-Ajeitar o ativado do poder Especial
-Ajeitar as esperas
-printar que o poder especial foi ativado e 
+Ajeitar as esperas1 
+tratamento de erro
+salvar/ carregar/... ARQUIVOOO
+GOGOGOGOG POWER RANGER
 */
 import java.util.*;
 
@@ -172,12 +172,12 @@ public class Batalha implements FuncionalidadesBatalha{
   public void luta(){
     Scanner teclado = new Scanner(System.in);
     int rodada = 0;
-
-    // Vetor Sequência Aleatoria da Rodada
-    Integer[] vetorAleatorio = Sistema.rodadaAleatoria(personagem_partida.size());
-
+    
     while(personagemVivos() > 1){
       rodada += 1;
+
+      // Vetor Sequência Aleatoria da Rodada
+      Integer[] vetorAleatorio = Sistema.rodadaAleatoria(personagem_partida.size());
 
       Sistema.limparTela();
 
@@ -204,22 +204,16 @@ public class Batalha implements FuncionalidadesBatalha{
         System.out.printf("\n |                JOGADOR %d              | ", vetorAleatorio[i]+1);
         System.out.printf("\n *---------------------------------------* ");
         System.out.printf("\n |       [1]. ATACAR                     | ");
-
-        if (personagem_partida.get(vetorAleatorio[i]).getDefesaAtivada() == 1){
-          System.out.printf("\n |       [2]. DEFENDER - ATIVADA         | ");
-        }
-        else{
-          System.out.printf("\n |       [2]. DEFENDER - DESATIVADA      | ");
-        }
-
+        System.out.printf("\n |       [2]. DEFENDER                   | ");
+        
         if (personagem_partida.get(vetorAleatorio[i]).getPercentualPowerUp() == 1){
           System.out.printf("\n |       [3]. POWER-UP - CARREGADO       | ");
         }
         else{
-          System.out.printf("\n |       [2]. POWER-UP                   | ");
+          System.out.printf("\n |       [3]. POWER-UP                   | ");
         }
       
-        if (personagem_partida.get(vetorAleatorio[i]).getVidaRetirada() == 1){
+        if (personagem_partida.get(vetorAleatorio[i]).getVidaRetirada() >= 100){
           System.out.printf("\n |       [4]. PODER ESPECIAL - CARREGADO | ");
         }
         else{
@@ -260,6 +254,8 @@ public class Batalha implements FuncionalidadesBatalha{
           else{
             System.out.printf("\n FALTA CAUSAR %d DANO PARA DESBLOQUEAR O ATAQUE ESPECIAL",personagem_partida.get(vetorAleatorio[i]).getVidaRetirada());
             i--;
+
+            Sistema.esperar();
           }
         }
 
@@ -278,12 +274,16 @@ public class Batalha implements FuncionalidadesBatalha{
     for(int i = 0; i < personagem_partida.size(); i++){
 
       if (personagem_partida.get(i).getVida() > 1){
+        Sistema.limparTela();
+
         System.out.printf("\n *---------------------------------------* ");
         System.out.printf("\n |               VENCEDOR                | ");
         System.out.printf("\n *---------------------------------------* ");
-        System.out.printf("\n |       NOME: %s                           ",personagem_partida.get(i).getNome());
+        System.out.printf("\n          NOME: %s                           ",personagem_partida.get(i).getNome());
         System.out.printf("\n *---------------------------------------* ");
-          
+
+        Sistema.esperar();
+
         break;
       }
 
@@ -320,11 +320,11 @@ public class Batalha implements FuncionalidadesBatalha{
     System.out.printf("\n |               CLASSES                  | "); 
     System.out.printf("\n *----------------------------------------* "); 
     System.out.printf("\n *----------------------------------------* ");
-    System.out.printf("\n     NÍVEL:       | ATAQUE | DEFESA |       "); 
+    System.out.printf("\n     NÍVEL:       | ATAQUE  | DEFESA |      "); 
     System.out.printf("\n *----------------------------------------* ");
-    System.out.printf("\n   [1]. GUERREIRO |   20   |   30   |       ");
-    System.out.printf("\n   [2]. ARQUEIRO  |   15   |   50   |       ");
-    System.out.printf("\n   [3]. MAGO      |   10   |   70   |       ");
+    System.out.printf("\n   [1]. GUERREIRO |   20    |   30   |      ");
+    System.out.printf("\n   [2]. ARQUEIRO  |   15    |   50   |      ");
+    System.out.printf("\n   [3]. MAGO      |   10    |   70   |      ");
     System.out.printf("\n *----------------------------------------* ");
     
     System.out.printf("\n\n Digite sua classe: ");
