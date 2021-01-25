@@ -19,7 +19,7 @@ class Main{
       System.out.printf("\n\n  Digite sua escolha: ");
       
       int respostaMenuPrincipal;
-
+      //tratamento de erro
       try{
         respostaMenuPrincipal = teclado.nextInt();
       } catch (InputMismatchException e) {
@@ -42,10 +42,17 @@ class Main{
           System.out.printf("\n\n   VOLTANDO PARA MENU PRINCIPAL");
           Sistema.esperar();
           continue;
-        }  
+        }
         
+        if (numero_jogador < 2){
+          System.out.printf("\n\n  NUMERO DE JOGADORES INSUFICIENTE");
+          System.out.printf("\n\n   VOLTANDO PARA MENU PRINCIPAL");
+          Sistema.esperar();
+          continue;
+        }
+
         Batalha b = new Batalha();
-        
+
         while(true){ 
           if (i == (numero_jogador + 1)){
             break;
