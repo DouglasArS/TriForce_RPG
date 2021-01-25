@@ -213,7 +213,7 @@ public class Batalha implements FuncionalidadesBatalha{
           System.out.printf("\n |       [3]. POWER-UP                   | ");
         }
       
-        if (personagem_partida.get(vetorAleatorio[i]).getVidaRetirada() >= 100){
+        if (personagem_partida.get(vetorAleatorio[i]).getVidaRetirada() >= 15){
           System.out.printf("\n |       [4]. PODER ESPECIAL - CARREGADO | ");
         }
         else{
@@ -221,11 +221,11 @@ public class Batalha implements FuncionalidadesBatalha{
         }
 
         System.out.printf("\n *---------------------------------------* ");
-        
 
         System.out.printf("\n Digite sua escolha: ");
         int escolha = teclado.nextInt();
-        
+  
+
         // Escolhendo Atacar
         if (escolha == 1){ 
           System.out.printf("\n Digite seu oponente: ");
@@ -237,19 +237,27 @@ public class Batalha implements FuncionalidadesBatalha{
           }
           
         }
-        // Escolhendo Defesa
+        // Escolhendo ação Defesa:
         else if (escolha == 2){
           this.defender(vetorAleatorio[i]);
         }
-        // Escolhendo Power Up
+        // Escolhendo ação Power Up:
         else if (escolha == 3){
           this.powerUp(vetorAleatorio[i]);
         }
-        // Escolhendo Poder Especial
+        // Escolhendo ação Poder Especial:
         else if (escolha == 4){
-          if (personagem_partida.get(vetorAleatorio[i]).getVidaRetirada() >= 100){
-            personagem_partida.get(vetorAleatorio[i]).poderEspecial(vetorAleatorio[i], personagem_partida);
-            personagem_partida.get(vetorAleatorio[i]).setVidaRetirada(-100);
+          if (personagem_partida.get(vetorAleatorio[i]).getVidaRetirada() >= 15){
+
+            if (personagem_partida.get(vetorAleatorio[i]).poderEspecial(vetorAleatorio[i], personagem_partida) == true){
+              personagem_partida.get(vetorAleatorio[i]).setVidaRetirada(-100);
+            }
+            else{
+              System.out.printf("\n\n  NAO FOI POSSIVEL USAR O PODER ESPECIAL");
+              i--;
+              Sistema.esperar();
+            }
+            
           }
           else{
             System.out.printf("\n FALTA CAUSAR %d DANO PARA DESBLOQUEAR O ATAQUE ESPECIAL",personagem_partida.get(vetorAleatorio[i]).getVidaRetirada());
@@ -293,7 +301,7 @@ public class Batalha implements FuncionalidadesBatalha{
   
   // Criar Personagens
   @Override
-  public void criarPersonagem(){
+  public boolean criarPersonagem(){
     
     Scanner teclado = new Scanner(System.in);
 
@@ -302,8 +310,9 @@ public class Batalha implements FuncionalidadesBatalha{
     System.out.printf("\n *---------------------------------------* ");
 
     System.out.printf("\n\n Digite o nome do personagem: ");
-    String nome = teclado.next(); // input nome do personagem
     
+    String nome = teclado.nextLine(); // input nome do personagem
+
     System.out.printf("\n *---------------------------------------* ");
     System.out.printf("\n |            TRIBOS                     | ");
     System.out.printf("\n *---------------------------------------* ");
@@ -313,8 +322,17 @@ public class Batalha implements FuncionalidadesBatalha{
     System.out.printf("\n *---------------------------------------* ");
             
     System.out.printf("\n\n Digite sua tribo: "); 
-  
-    int tribo = teclado.nextInt(); // input tribo
+    
+    int tribo;
+    
+    //tratamento de erro do input da tribo:
+    try{
+      tribo = teclado.nextInt();
+    } catch (InputMismatchException e) {
+      System.out.printf("\n\n   VALOR INVALIDO");
+      return false;
+    }
+
 
     System.out.printf("\n *----------------------------------------* ");
     System.out.printf("\n |               CLASSES                  | "); 
@@ -343,6 +361,8 @@ public class Batalha implements FuncionalidadesBatalha{
       Mago p = new Mago(nome, tribo, classe);
       this.personagem_partida.add(p);
     }
+
+    return true;
     
   }
 
