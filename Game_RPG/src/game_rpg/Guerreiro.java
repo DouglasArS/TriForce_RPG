@@ -7,12 +7,23 @@ class Guerreiro extends Personagem{
   } 
   
   public boolean poderEspecial(int jogador, Vector<Personagem> personagem_partida){
-
     Scanner teclado = new Scanner(System.in);
 
-    System.out.printf("\n Digite seu oponente: ");
-    int openente1 = teclado.nextInt()-1;
+    int openente1;
 
+    //tratamento de erro na habilidade especial do guerreiro:
+    try{
+      System.out.printf("\n Digite seu oponente: ");
+      openente1 = teclado.nextInt()-1;
+      personagem_partida.get(openente1); 
+    } catch (InputMismatchException e) {
+      System.out.printf("\n\n  OPONENTE INVALIDO");
+      return false;
+    } catch (ArrayIndexOutOfBoundsException e){
+      System.out.printf("\n\n  OPONENTE INEXISTENTE");
+      return false;
+    }
+    
     personagem_partida.get(openente1).setVida(personagem_partida.get(openente1).getVida()-35);
     personagem_partida.get(jogador).setVida(personagem_partida.get(jogador).getVida()-15);
 
