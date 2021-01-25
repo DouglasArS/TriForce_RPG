@@ -6,7 +6,7 @@ class Guerreiro extends Personagem{
     super(nome, tribo, classe);
   } 
   
-  public void poderEspecial(int jogador, Vector<Personagem> personagem_partida){
+  public boolean poderEspecial(int jogador, Vector<Personagem> personagem_partida){
 
     Scanner teclado = new Scanner(System.in);
 
@@ -15,5 +15,7 @@ class Guerreiro extends Personagem{
 
     personagem_partida.get(openente1).setVida(personagem_partida.get(openente1).getVida()-35);
     personagem_partida.get(jogador).setVida(personagem_partida.get(jogador).getVida()-15);
+
+    return true;
   }
 }
