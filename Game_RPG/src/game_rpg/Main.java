@@ -18,15 +18,32 @@ class Main{
 
       System.out.printf("\n\n  Digite sua escolha: ");
       
-      int respostaMenuPrincipal = teclado.nextInt();
+      int respostaMenuPrincipal;
+
+      try{
+        respostaMenuPrincipal = teclado.nextInt();
+      } catch (InputMismatchException e) {
+        System.out.printf("\n\n   VALOR INVALIDO");
+        Sistema.esperar();
+        continue;
+      }
 
       if (respostaMenuPrincipal == 1){
         int i = 1;
-        
-        System.out.printf("\n Digite a quantidade de jogadores: ");
-        
-        int numero_jogador=teclado.nextInt();
 
+        System.out.printf("\n Digite a quantidade de jogadores: ");
+
+        int numero_jogador;
+
+        try{
+          numero_jogador = teclado.nextInt();
+        } catch (InputMismatchException e) {
+          System.out.printf("\n\n   VALOR INVALIDO");
+          System.out.printf("\n\n   VOLTANDO PARA MENU PRINCIPAL");
+          Sistema.esperar();
+          continue;
+        }  
+        
         Batalha b = new Batalha();
         
         while(true){ 
@@ -46,8 +63,16 @@ class Main{
           System.out.printf("\n *---------------------------------------* ");
 
           System.out.printf("\n\n  Digite sua escolha: ");
-      
-          int respostaMenuSecundario = teclado.nextInt();
+            
+          int respostaMenuSecundario;
+           
+          try{
+            respostaMenuSecundario = teclado.nextInt();
+          } catch (InputMismatchException e) {
+            System.out.printf("\n\n   VALOR INVALIDO");
+            Sistema.esperar();
+            continue;
+          }  
 
           if (respostaMenuSecundario == 1){
             b.criarPersonagem(); //criou arena b
@@ -67,9 +92,13 @@ class Main{
         b.luta();
 
       }
-      else {
+      else if (respostaMenuPrincipal == 2) {
         System.out.printf("\n SAINDO DO JOGO...");
         break;
+      }
+      else{
+        System.out.printf("\n\n   VALOR INVALIDO");
+        Sistema.esperar();
       }
       
     }
