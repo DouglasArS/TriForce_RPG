@@ -8,21 +8,39 @@ class Arqueiro extends Personagem{
     super(nome, tribo, classe);
   }
   
-  public void poderEspecial(int jogador, Vector<Personagem> personagem_partida){
+  public boolean poderEspecial(int jogador, Vector<Personagem> personagem_partida){
     
     Scanner teclado = new Scanner(System.in);
+    int openente1;
+    int openente2;
+    int openente3;
 
-    System.out.printf("\n Digite seu primeiro oponente: ");
-    int openente1 = teclado.nextInt()-1;
+    // tratamento de erro
+    try{
+      System.out.printf("\n  Oponente1: ");
+      openente1 = teclado.nextInt()-1;
+      personagem_partida.get(openente1);
 
-    System.out.printf("\n Digite seu segundo oponente: ");
-    int openente2 = teclado.nextInt()-1;
+      System.out.printf("\n  Oponente2: ");
+      openente2 = teclado.nextInt()-1;
+      personagem_partida.get(openente2);
 
-    System.out.printf("\n Digite seu terceiro oponente: ");
-    int openente3 = teclado.nextInt()-1;
+      System.out.printf("\n  Oponente3: ");
+      openente3 = teclado.nextInt()-1;
+      personagem_partida.get(openente3); 
+
+    } catch (InputMismatchException e) {
+      System.out.printf("\n\n  VALOR INVALIDO");
+      return false;
+    } catch (ArrayIndexOutOfBoundsException e){
+      System.out.printf("\n\n  OPONENTE INEXISTENTE");
+      return false;
+    }
     
     personagem_partida.get(openente1).setVida(personagem_partida.get(openente1).getVida()-7);
     personagem_partida.get(openente2).setVida(personagem_partida.get(openente2).getVida()-7);
     personagem_partida.get(openente3).setVida(personagem_partida.get(openente3).getVida()-7);
+
+    return true;
   }
 }
