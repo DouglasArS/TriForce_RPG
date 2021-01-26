@@ -5,7 +5,7 @@ public class Sistema{
   // Pausa o Programa por Segundos
   static void esperar(){
     try { 
-      Thread.sleep(5000); // 10000ms = 10s 
+      Thread.sleep(2000); // 10000ms = 10s 
     } catch(InterruptedException ex){
       System.exit(0);
     }
