@@ -104,6 +104,6 @@ public abstract class Personagem{
     this.vidaRetirada += vidaRetirada;
   }
 
-  public void poderEspecial(int jogador, Vector<Personagem> personagem_partida){}
+  public abstract boolean poderEspecial(int jogador, Vector<Personagem> personagem_partida);
 
 }
