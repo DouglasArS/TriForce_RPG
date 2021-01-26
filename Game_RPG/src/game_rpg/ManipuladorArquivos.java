@@ -50,7 +50,8 @@ public class ManipuladorArquivos{
       
       quantidadeArquivo++;
 
-      buffWrite.write(quantidadeArquivo + "\n");
+      buffWrite.write(quantidadeArquivo);
+      buffWrite.newLine();
         
       buffWrite.close();
       file.close();       
