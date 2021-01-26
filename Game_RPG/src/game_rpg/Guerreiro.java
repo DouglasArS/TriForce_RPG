@@ -11,7 +11,7 @@ class Guerreiro extends Personagem{
 
     int openente1;
 
-    //tratamento de erro na habilidade especial do guerreiro:
+    //tratamento de erro caso o guerreiro ataque um alvo invalido/inexistente:
     try{
       System.out.printf("\n Digite seu oponente: ");
       openente1 = teclado.nextInt()-1;
