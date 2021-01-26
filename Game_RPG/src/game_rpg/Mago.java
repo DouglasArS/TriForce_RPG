@@ -6,8 +6,10 @@ class Mago extends Personagem{
     super(nome, tribo, classe);
   }
   
-  public void poderEspecial(int jogador, Vector<Personagem> personagem_partida){
+  public boolean poderEspecial(int jogador, Vector<Personagem> personagem_partida){
      personagem_partida.get(jogador).setVida(personagem_partida.get(jogador).getVida()+25);
+
+     return true;
   }
 
 }
