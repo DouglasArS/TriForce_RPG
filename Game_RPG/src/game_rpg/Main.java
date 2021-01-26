@@ -74,7 +74,7 @@ class Main{
           System.out.printf("\n\n  Digite sua escolha: ");
             
           int respostaMenuSecundario;
-          //tratamento de erro
+          // tratamento de erro
           try{
             respostaMenuSecundario = teclado.nextInt();
           } catch (InputMismatchException e) {
@@ -100,13 +100,24 @@ class Main{
             System.out.printf("\n Editar Personagem ");
           }
           else if (respostaMenuSecundario == 4){
+            personagemCarregados = false;
+            System.out.printf("\n\n  VOLTANDO PARA O MENU PRINCIPAL");
+            Sistema.esperar();
+            break;
+          }
+          else{
+            personagemCarregados = false;
+            System.out.printf("\n\n  VALOR INVALIDO");
+            System.out.printf("\n\n  VOLTANDO PARA O MENU PRINCIPAL");
+            Sistema.esperar();
             break;
           }
 
           i++; 
         }
+
         //tratamento de erro
-        if (personagemCarregados){
+        if (personagemCarregados == true){
           b.luta(); 
         }
 
@@ -122,7 +133,6 @@ class Main{
       
     }
 
-  
   }
 
 }
