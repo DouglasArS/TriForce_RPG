@@ -94,7 +94,8 @@ class Main{
 
           }
           else if (respostaMenuSecundario == 2){
-            System.out.printf("\n Carregando Personagem ");
+            System.out.printf("\n Carregando Arquivo");
+            Sistema.esperar();
           }
           else if (respostaMenuSecundario == 3){
             System.out.printf("\n Editar Personagem ");
