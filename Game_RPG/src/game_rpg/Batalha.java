@@ -415,10 +415,120 @@ public class Batalha implements FuncionalidadesBatalha{
     ManipuladorArquivos manipulador = new ManipuladorArquivos();
     
     manipulador.salvarPersonagem(nome, tribo, classe);
-
-    this.
+    
+    manipulador.salvarNomesArquivos(nome);
     
     return true; 
+  }
+
+  // Carregar Nomes dos Arquivos no vetor nomes_arquivos
+  public void getNomesArquivos(){
+
+    try {
+      FileReader file = new FileReader("ArquivosTexto/nomesPersonagem.txt");
+            
+      BufferedReader br = new BufferedReader(file);
+            
+      String linha = br.readLine();
+      
+      while (linha != null){
+        nomes_arquivos.add(linha);
+        
+        linha = br.readLine();
+      }        
+
+      file.close();
+
+    }
+    catch (FileNotFoundException e){
+      System.out.println("Arquivo não encontrado");
+    }
+    catch (IOException e ) {
+      System.out.println("Erro na leitura do arquivo");
+    }
+
+  }
+
+
+  // Mostrar Arquivos de Personagens
+  public void mostrarArquivos(){
+
+    Sistema.limparTela();
+
+    // Carregando Nomes dos Arquivos no vetor nomes_arquivos
+    this.getNomesArquivos();
+
+    ManipuladorArquivos manipulador = new ManipuladorArquivos();
+
+    System.out.printf("\n *----------------------------------------* ");
+    System.out.printf("\n |           PERSONAGENS SALVOS           | "); 
+    System.out.printf("\n *----------------------------------------* "); 
+
+    for (int i = 0; i < nomes_arquivos.size(); i++){
+      System.out.printf("\n *----------------------------------------* ");
+      System.out.printf("\n      PERSONAGEM %d:                         \n", (i+1));
+      manipulador.lerArquivo(nomes_arquivos.get(i));
+      System.out.printf("\n *----------------------------------------* ");
+    }
+
+  }
+
+  // Carregar Personagem e escolhendo 
+  public boolean carregarPersonagem(){
+    
+    Scanner teclado = new Scanner(System.in);
+
+    this.mostrarArquivos();
+
+    System.out.printf("\n  Digite o numero do persoagem: ");
+    
+    int numPersonagem;
+    
+    try{
+      numPersonagem = teclado.nextInt();
+    } catch (InputMismatchException e) {
+      System.out.printf("\n\n   PERSONAGEM INVALIDO");
+      return false;
+    }
+
+    if ((numPersonagem < 1) || (numPersonagem > nomes_arquivos.size())){
+      System.out.printf("\n\n   PERSONAGEM INVALIDO");
+      return false;
+    }
+    
+    try {
+      Scanner file = new Scanner(new FileReader("ArquivosTexto/"+nomes_arquivos.get(numPersonagem-1)+".txt"));
+            
+      String nome = file.nextLine();
+
+      int tribo = file.nextInt();
+
+      int classe = file.nextInt();
+
+      file.close();
+
+      // Criando e Inicializando o p
+      if (classe == 1){
+        Guerreiro p = new Guerreiro(nome, tribo, classe);
+        this.personagem_partida.add(p);
+      }
+      else if (classe == 2){
+        Arqueiro p = new Arqueiro(nome, tribo, classe);
+        this.personagem_partida.add(p);
+      }
+      else if(classe == 3){
+        Mago p = new Mago(nome, tribo, classe);
+        this.personagem_partida.add(p);
+      }
+
+    }
+    catch (FileNotFoundException e){
+      System.out.println("Arquivo não encontrado");
+      return false;
+    }
+
+    return true;
+    
   }
 
 }
