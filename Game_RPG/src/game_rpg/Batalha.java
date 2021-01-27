@@ -1,6 +1,6 @@
 /*O QUE FALTA:
 tratamento de erro (especificamente ao digitar letras no ataque)
-salvar/carregar/deletar/editar/mostrar personagens
+deletar/editar/mostrar personagens
 */
 import java.util.*;
 import java.io.*;
@@ -10,7 +10,6 @@ public class Batalha implements FuncionalidadesBatalha{
   Vector<Personagem> personagem_partida = new Vector<Personagem>(); // Vetor Personagem da Partida
   
   Vector<String> nomes_arquivos = new Vector<String>(); // Vetor Nomes Arquivos
-
   
   // Ação Atacar
   @Override
@@ -422,6 +421,7 @@ public class Batalha implements FuncionalidadesBatalha{
   }
 
   // Carregar Nomes dos Arquivos no vetor nomes_arquivos
+  @Override
   public void getNomesArquivos(){
 
     try {
@@ -451,12 +451,10 @@ public class Batalha implements FuncionalidadesBatalha{
 
 
   // Mostrar Arquivos de Personagens
+  @Override
   public void mostrarArquivos(){
 
-    Sistema.limparTela();
-
-    // Carregando Nomes dos Arquivos no vetor nomes_arquivos
-    this.getNomesArquivos();
+    Sistema.limparTela(); 
 
     ManipuladorArquivos manipulador = new ManipuladorArquivos();
 
@@ -474,6 +472,7 @@ public class Batalha implements FuncionalidadesBatalha{
   }
 
   // Carregar Personagem e escolhendo 
+  @Override
   public boolean carregarPersonagem(){
     
     Scanner teclado = new Scanner(System.in);
