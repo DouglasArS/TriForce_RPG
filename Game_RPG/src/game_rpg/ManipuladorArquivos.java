@@ -3,13 +3,13 @@ import java.io.*;
 public class ManipuladorArquivos{
   
   public String getQuantidadeArquivo(){
-    String quantidadeArquivo = ""; 
+    String quantidadeArquivo = "";
     
     try {
       FileReader file = new FileReader("ArquivosTexto/QuantidadeArquivos.txt");
             
       BufferedReader br = new BufferedReader(file);
-            
+
       quantidadeArquivo = br.readLine();
 
       file.close();
@@ -25,7 +25,7 @@ public class ManipuladorArquivos{
   }
 
   public void setQuantidadeArquivo(){
-    int quantidadeArquivo = 0; 
+    int quantidadeArquivo = 0;
     
     try {
       FileReader file = new FileReader("ArquivosTexto/QuantidadeArquivos.txt");
@@ -78,7 +78,7 @@ public class ManipuladorArquivos{
       buffWrite.append(classe + "\n");
         
       buffWrite.close();
-      file.close();       
+      file.close();
     }
     catch (FileNotFoundException e){
       System.out.println("Arquivo não encontrado2");
@@ -90,5 +90,5 @@ public class ManipuladorArquivos{
     this.setQuantidadeArquivo();
 
   }
-    
+
 }
