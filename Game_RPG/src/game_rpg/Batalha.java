@@ -1,10 +1,9 @@
 /*O QUE FALTA:
-Ajeitar as esperas1 
-tratamento de erro
-salvar/ carregar/... ARQUIVOOO
-GOGOGOGOG POWER RANGER
+tratamento de erro (especificamente ao digitar letras no ataque)
+salvar/carregar/deletar/editar/mostrar personagens
 */
 import java.util.*;
+import java.io.*;
 
 public class Batalha implements FuncionalidadesBatalha{
   
@@ -213,7 +212,7 @@ public class Batalha implements FuncionalidadesBatalha{
           System.out.printf("\n |       [3]. POWER-UP                   | ");
         }
       
-        if (personagem_partida.get(vetorAleatorio[i]).getVidaRetirada() >= 15){
+        if (personagem_partida.get(vetorAleatorio[i]).getVidaRetirada() >= 100){
           System.out.printf("\n |       [4]. PODER ESPECIAL - CARREGADO | ");
         }
         else{
@@ -228,7 +227,7 @@ public class Batalha implements FuncionalidadesBatalha{
         //tratamento de erro da escolha de ação do personagem:
         try{
           escolha = teclado.nextInt();
-        }catch (InputMismatchException e){
+        } catch (InputMismatchException e){
           System.out.printf("\n\n   VALOR INVALIDO");
           Sistema.esperar();
           i--;
@@ -237,15 +236,32 @@ public class Batalha implements FuncionalidadesBatalha{
 
         // Escolhendo Atacar
         if (escolha == 1){ 
-          System.out.printf("\n Digite seu oponente: ");
-          int numOponente = teclado.nextInt();
-          this.atacar(vetorAleatorio[i], numOponente-1);
+          
+          boolean ataqueSucesso = true;
 
+          System.out.printf("\n Digite seu oponente: ");
+          int numOponente = 5;
+
+          //tratamento de erro caso o usuario ataque um alvo invalido/inexistente:
+          try{
+            numOponente = teclado.nextInt();
+            personagem_partida.get(numOponente-1);
+
+          } catch (InputMismatchException e){
+            System.out.printf("\n\n   OPONENTE INVALIDO");
+            Sistema.esperar();
+            i--;
+            continue;
+          }
+          
+          this.atacar(vetorAleatorio[i], numOponente-1); 
+          
           if (personagemVivos() == 1){
             break;
           }
           
         }
+        
         // Escolhendo ação Defesa:
         else if (escolha == 2){
           this.defender(vetorAleatorio[i]);
@@ -256,7 +272,7 @@ public class Batalha implements FuncionalidadesBatalha{
         }
         // Escolhendo ação Poder Especial:
         else if (escolha == 4){
-          if (personagem_partida.get(vetorAleatorio[i]).getVidaRetirada() >= 15){
+          if (personagem_partida.get(vetorAleatorio[i]).getVidaRetirada() >= 100){
 
             if (personagem_partida.get(vetorAleatorio[i]).poderEspecial(vetorAleatorio[i], personagem_partida) == true){
               personagem_partida.get(vetorAleatorio[i]).setVidaRetirada(-100);
@@ -298,7 +314,7 @@ public class Batalha implements FuncionalidadesBatalha{
         System.out.printf("\n *---------------------------------------* ");
         System.out.printf("\n          NOME: %s                           ",personagem_partida.get(i).getNome());
         System.out.printf("\n *---------------------------------------* ");
-
+       
         Sistema.esperar();
 
         break;
@@ -352,11 +368,11 @@ public class Batalha implements FuncionalidadesBatalha{
     System.out.printf("\n |               CLASSES                  | "); 
     System.out.printf("\n *----------------------------------------* "); 
     System.out.printf("\n *----------------------------------------* ");
-    System.out.printf("\n     NÍVEL:       | ATAQUE  | DEFESA |      "); 
+    System.out.printf("\n      NÍVEL:       | ATAQUE  | DEFESA |     "); 
     System.out.printf("\n *----------------------------------------* ");
-    System.out.printf("\n   [1]. GUERREIRO |   20    |   30   |      ");
-    System.out.printf("\n   [2]. ARQUEIRO  |   15    |   50   |      ");
-    System.out.printf("\n   [3]. MAGO      |   10    |   70   |      ");
+    System.out.printf("\n    [1]. GUERREIRO |   20    |   30   |     ");
+    System.out.printf("\n    [2]. ARQUEIRO  |   15    |   50   |     ");
+    System.out.printf("\n    [3]. MAGO      |   10    |   70   |     ");
     System.out.printf("\n *----------------------------------------* ");
     
     System.out.printf("\n\n Digite sua classe: ");
@@ -390,9 +406,40 @@ public class Batalha implements FuncionalidadesBatalha{
       Mago p = new Mago(nome, tribo, classe);
       this.personagem_partida.add(p);
     }
-
-    return true;
     
+    //Manipulacao de arquivos
+    
+    ManipuladorArquivos manipulador = new ManipuladorArquivos();
+    
+    manipulador.salvarPersonagem(nome, tribo, classe);
+    
+    return true; 
   }
 
+  // Mostrar Personagem Arquivos
+
+  public void mostrarArquivos(){
+
+    // Lendo a Quantidade de Arquivo
+
+    int quantidadeArquivo = 0;
+    
+    try {
+      Scanner in = new Scanner(new FileReader("ArquivosTexto/QuantidadeArquivos.txt"));
+    
+      int line = in.nextInt();
+      System.out.println(line);
+      
+      in.close();
+    }
+    catch (FileNotFoundException e){
+        System.out.println("Arquivo não encontrado1");
+    }
+    catch (IOException e ) {
+        System.out.println("Erro na leitura do arquivo1");
+    }
+    
+
+  }
+  
 }
