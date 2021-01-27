@@ -29,6 +29,11 @@ class Main{
       }
 
       if (respostaMenuPrincipal == 1){
+        Batalha b = new Batalha();
+
+        // Carregando Nomes dos Arquivo no Vetor Nomes_Arquivos
+        b.getNomesArquivos();
+
         int i = 1;
 
         System.out.printf("\n Digite a quantidade de jogadores: ");
@@ -51,7 +56,6 @@ class Main{
           continue;
         }
 
-        Batalha b = new Batalha();
         //tratamento de erro
         boolean personagemCarregados = true;
 
