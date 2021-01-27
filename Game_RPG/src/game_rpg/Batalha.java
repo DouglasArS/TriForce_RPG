@@ -8,7 +8,10 @@ import java.io.*;
 public class Batalha implements FuncionalidadesBatalha{
   
   Vector<Personagem> personagem_partida = new Vector<Personagem>(); // Vetor Personagem da Partida
+  
+  Vector<String> nomes_arquivos = new Vector<String>(); // Vetor Nomes Arquivos
 
+  
   // Ação Atacar
   @Override
   public void atacar(int atacante, int oponente){
@@ -407,39 +410,15 @@ public class Batalha implements FuncionalidadesBatalha{
       this.personagem_partida.add(p);
     }
     
-    //Manipulacao de arquivos
+    // Manipulacao de arquivos
     
     ManipuladorArquivos manipulador = new ManipuladorArquivos();
     
     manipulador.salvarPersonagem(nome, tribo, classe);
+
+    this.
     
     return true; 
   }
 
-  // Mostrar Personagem Arquivos
-
-  public void mostrarArquivos(){
-
-    // Lendo a Quantidade de Arquivo
-
-    int quantidadeArquivo = 0;
-    
-    try {
-      Scanner in = new Scanner(new FileReader("ArquivosTexto/QuantidadeArquivos.txt"));
-    
-      int line = in.nextInt();
-      System.out.println(line);
-      
-      in.close();
-    }
-    catch (FileNotFoundException e){
-        System.out.println("Arquivo não encontrado1");
-    }
-    catch (IOException e ) {
-        System.out.println("Erro na leitura do arquivo1");
-    }
-    
-
-  }
-  
 }
