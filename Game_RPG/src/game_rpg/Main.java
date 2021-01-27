@@ -94,8 +94,11 @@ class Main{
 
           }
           else if (respostaMenuSecundario == 2){
-            System.out.printf("\n Carregando Arquivo");
-            Sistema.esperar();
+            if (b.carregarPersonagem() == false){
+              System.out.printf("\n\n   VOLTANDO PARA O MENU DO JOGADOR %d", i);
+              Sistema.esperar();
+              i--;
+            }
           }
           else if (respostaMenuSecundario == 3){
             System.out.printf("\n Editar Personagem ");
