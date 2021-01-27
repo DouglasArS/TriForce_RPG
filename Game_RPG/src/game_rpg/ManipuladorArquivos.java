@@ -1,75 +1,13 @@
 import java.io.*;
+import java.util.*;
 
 public class ManipuladorArquivos{
-  
-  public String getQuantidadeArquivo(){
-    String quantidadeArquivo = "";
-    
-    try {
-      FileReader file = new FileReader("ArquivosTexto/QuantidadeArquivos.txt");
-            
-      BufferedReader br = new BufferedReader(file);
-
-      quantidadeArquivo = br.readLine();
-
-      file.close();
-    }
-    catch (FileNotFoundException e){
-        System.out.println("Arquivo não encontrado1");
-    }
-    catch (IOException e ) {
-        System.out.println("Erro na leitura do arquivo1");
-    }
-
-    return quantidadeArquivo;
-  }
-
-  public void setQuantidadeArquivo(){
-    int quantidadeArquivo = 0;
-    
-    try {
-      FileReader file = new FileReader("ArquivosTexto/QuantidadeArquivos.txt");
-            
-      BufferedReader br = new BufferedReader(file);
-            
-      quantidadeArquivo = br.read();
-
-      file.close();
-    }
-    catch (FileNotFoundException e){
-        System.out.println("Arquivo não encontrado1");
-    }
-    catch (IOException e ) {
-        System.out.println("Erro na leitura do arquivo1");
-    }
-    
-    try {
-      FileWriter file = new FileWriter("ArquivosTexto/QuantidadeArquivos.txt");
-      
-      BufferedWriter buffWrite = new BufferedWriter(file);
-      
-      quantidadeArquivo++;
-
-      buffWrite.write(quantidadeArquivo);
-      buffWrite.newLine();
-        
-      buffWrite.close();
-      file.close();       
-    }
-    catch (FileNotFoundException e){
-      System.out.println("Arquivo não encontrado2");
-    }
-    catch (IOException e) {
-      System.out.println("Erro na leitura do arquivo1");
-    }
-    
-  }
+  // Salvando Personagem
   
   public void salvarPersonagem(String nome, int tribo, int classe){
-    String i = this.getQuantidadeArquivo();
-
+    
     try {
-      FileWriter file = new FileWriter("ArquivosTexto/arquivo"+i+".txt");
+      FileWriter file = new FileWriter("ArquivosTexto/"+nome+".txt");
       
       BufferedWriter buffWrite = new BufferedWriter(file);
       
@@ -87,8 +25,6 @@ public class ManipuladorArquivos{
       System.out.println("Erro na leitura do arquivo1");
     }
 
-    this.setQuantidadeArquivo();
-
   }
-
+  
 }
