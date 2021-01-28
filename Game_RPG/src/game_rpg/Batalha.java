@@ -1,6 +1,7 @@
-/*O QUE FALTA:
+/*
+O QUE FALTA:
 tratamento de erro (especificamente ao digitar letras no ataque)
-deletar/editar/mostrar personagens
+editar personagem
 */
 import java.util.*;
 import java.io.*;
@@ -314,7 +315,7 @@ public class Batalha implements FuncionalidadesBatalha{
         System.out.printf("\n *---------------------------------------* ");
         System.out.printf("\n |               VENCEDOR                | ");
         System.out.printf("\n *---------------------------------------* ");
-        System.out.printf("\n          NOME: %s                           ",personagem_partida.get(i).getNome());
+        System.out.printf("\n |        NOME: %s                           ",personagem_partida.get(i).getNome());
         System.out.printf("\n *---------------------------------------* ");
        
         Sistema.esperar();
@@ -335,7 +336,7 @@ public class Batalha implements FuncionalidadesBatalha{
     System.out.printf("\n *---------------------------------------* ");
     System.out.printf("\n |           CRIANDO PERSONAGEM          | ");
     System.out.printf("\n *---------------------------------------* ");
-
+    
     System.out.printf("\n\n Digite o nome do personagem: ");
     
     String nome = teclado.nextLine(); // input nome do personagem
@@ -452,9 +453,7 @@ public class Batalha implements FuncionalidadesBatalha{
 
   // Mostrar Arquivos de Personagens
   @Override
-  public void mostrarArquivos(){
-
-    Sistema.limparTela(); 
+  public void mostrarArquivos(){ 
 
     ManipuladorArquivos manipulador = new ManipuladorArquivos();
 
@@ -477,9 +476,17 @@ public class Batalha implements FuncionalidadesBatalha{
     
     Scanner teclado = new Scanner(System.in);
 
+    Sistema.limparTela();
+
+    System.out.printf("\n *----------------------------------------* ");
+    System.out.printf("\n |        CARREGANDO PERSONAGENS          | "); 
+    System.out.printf("\n *----------------------------------------* \n");
+
+    Sistema.esperar();
+
     this.mostrarArquivos();
 
-    System.out.printf("\n  Digite o numero do persoagem: ");
+    System.out.printf("\n  Digite o numero do personagem: ");
     
     int numPersonagem;
     
@@ -528,6 +535,204 @@ public class Batalha implements FuncionalidadesBatalha{
 
     return true;
     
+  }
+
+  // Excluir Arquivo
+  public boolean excluirPersonagem(){
+    Scanner teclado = new Scanner(System.in);
+
+    // Atualizando Vetor NomesArquivos
+    nomes_arquivos = new Vector<String>();
+    this.getNomesArquivos();
+
+    Sistema.limparTela();
+
+    System.out.printf("\n *----------------------------------------* ");
+    System.out.printf("\n |          EXCLUINDO PERSONAGENS         | "); 
+    System.out.printf("\n *----------------------------------------* \n");
+
+    Sistema.esperar();
+    
+    this.mostrarArquivos();
+
+    System.out.printf("\n  Digite o numero do personagem: ");
+    
+    int numPersonagem;
+    
+    try{
+      numPersonagem = teclado.nextInt();
+    } catch (InputMismatchException e) {
+      System.out.printf("\n\n   PERSONAGEM INVALIDO");
+      return false;
+    }
+
+    if ((numPersonagem < 1) || (numPersonagem > nomes_arquivos.size())){
+      System.out.printf("\n\n   PERSONAGEM INVALIDO");
+      return false;
+    }
+
+    File file = new File("ArquivosTexto/"+nomes_arquivos.get(numPersonagem-1)+".txt");
+    file.delete();
+
+    // Reformulando nomesPersonagem.txt
+    try {
+      FileWriter arq = new FileWriter("ArquivosTexto/nomesPersonagem.txt");
+      
+      BufferedWriter buffWrite = new BufferedWriter(arq);
+      
+      for (int i = 0; i < nomes_arquivos.size(); i++){
+        if(i == numPersonagem-1){ continue; }
+        buffWrite.append(nomes_arquivos.get(i) + "\n");
+      }
+        
+      buffWrite.close();
+      arq.close();
+    }
+    catch (FileNotFoundException e){
+      System.out.println("Arquivo não encontrado2");
+    }
+    catch (IOException e) {
+      System.out.println("Erro na leitura do arquivo1");
+    }
+
+    // Atualizando Vetor NomesArquivos
+    nomes_arquivos = new Vector<String>();
+    this.getNomesArquivos();
+
+    return true;
+  }
+
+  // Editar Personagem
+  public boolean editarPersonagem(){
+
+    Scanner teclado = new Scanner(System.in);
+
+    Sistema.limparTela();
+
+    System.out.printf("\n *----------------------------------------* ");
+    System.out.printf("\n |          EDITANDO PERSONAGENS          | "); 
+    System.out.printf("\n *----------------------------------------* \n");
+
+    Sistema.esperar();
+    
+    this.mostrarArquivos();
+
+    System.out.printf("\n  Digite o numero do personagem: ");
+    
+    int numPersonagem;
+    
+    try{
+      numPersonagem = teclado.nextInt();
+    } catch (InputMismatchException e) {
+      System.out.printf("\n\n   PERSONAGEM INVALIDO");
+      return false;
+    }
+
+    if ((numPersonagem < 1) || (numPersonagem > nomes_arquivos.size())){
+      System.out.printf("\n\n   PERSONAGEM INVALIDO");
+      return false;
+    }
+
+    String nome = "";
+    int tribo = 0;
+    int classe = 0;
+
+    try {
+      Scanner file = new Scanner(new FileReader("ArquivosTexto/"+nomes_arquivos.get(numPersonagem-1)+".txt"));
+            
+      nome = file.nextLine();
+
+      tribo = file.nextInt();
+
+      classe = file.nextInt();
+
+      file.close();
+    }
+    catch (FileNotFoundException e){
+      System.out.println("Arquivo não encontrado");
+      return false;
+    }
+  
+    int nomeEditado = 0;
+
+    while (true){
+      
+      Sistema.limparTela();
+
+      System.out.printf("\n *---------------------------------------* ");
+      System.out.printf("\n |         EDITANDO PERSONAGEM           | ");
+      System.out.printf("\n *---------------------------------------* ");
+      System.out.printf("\n |       [1]. EDITAR NOME                | ");
+      System.out.printf("\n |       [2]. EDITAR TRIBO               | ");
+      System.out.printf("\n |       [3]. EDITAR CLASSE              | ");
+      System.out.printf("\n |       [4]. SAIR                       | ");
+      System.out.printf("\n *---------------------------------------* ");
+
+      int escolhaEditar;
+      System.out.printf("\n\n  Digite uma opcao: ");
+
+      try{
+        escolhaEditar = teclado.nextInt();
+      } catch (InputMismatchException e) {
+        System.out.printf("\n\n   OPCAO INVALIDA");
+        System.out.printf("\n   VOLTANDO PARA O MENU DO JOGADOR ");
+        Sistema.esperar();
+        break;
+      }
+
+      if ((escolhaEditar < 1) || (escolhaEditar > 4)){
+        System.out.printf("\n\n   OPCAO INVALIDA");
+        System.out.printf("\n   VOLTANDO PARA O MENU DO JOGADOR ");
+        Sistema.esperar();
+        break;
+      }
+
+      if (escolhaEditar == 1){
+        System.out.printf("\n\n Digite o Novo Nome: ");
+        nome = teclado.nextLine();
+        nomeEditado = 1;
+      }
+      else if (escolhaEditar == 2){
+        System.out.printf("\n *---------------------------------------* ");
+        System.out.printf("\n |            TRIBOS                     | ");
+        System.out.printf("\n *---------------------------------------* ");
+        System.out.printf("\n |       [1]. FOGO                       | ");
+        System.out.printf("\n |       [2]. ÁGUA                       | ");
+        System.out.printf("\n |       [3]. PLANTA                     | ");
+        System.out.printf("\n *---------------------------------------* ");
+
+        System.out.printf("\n\n Digite a nova Tribo: ");
+        tribo = teclado.nextInt();
+      }
+      else if (escolhaEditar == 3){
+        System.out.printf("\n *----------------------------------------* ");
+        System.out.printf("\n |               CLASSES                  | "); 
+        System.out.printf("\n *----------------------------------------* "); 
+        System.out.printf("\n *----------------------------------------* ");
+        System.out.printf("\n      NÍVEL:       | ATAQUE  | DEFESA |     "); 
+        System.out.printf("\n *----------------------------------------* ");
+        System.out.printf("\n    [1]. GUERREIRO |   20    |   30   |     ");
+        System.out.printf("\n    [2]. ARQUEIRO  |   15    |   50   |     ");
+        System.out.printf("\n    [3]. MAGO      |   10    |   70   |     ");
+        System.out.printf("\n *----------------------------------------* ");
+
+        System.out.printf("\n\n Digite a nova Classe: ");
+        classe = teclado.nextInt();
+      }
+      else if (escolhaEditar == 4){
+        break;
+      }
+
+      ManipuladorArquivos manipulador = new ManipuladorArquivos();
+    
+      // Nome Não Alterado - Criar Arquivo com mesmo Nome e Tribos e/ou Classes Diferentes
+      if (nomeEditado == 0){
+        manipulador.salvarPersonagem(nome, tribo, classe);
+      }
+
+    }
+
+    return true;
   }
 
 }
