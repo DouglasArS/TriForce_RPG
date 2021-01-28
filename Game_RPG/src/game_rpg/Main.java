@@ -72,7 +72,8 @@ class Main{
           System.out.printf("\n |       [1]. CRIAR NOVO PERSONAGEM      | ");
           System.out.printf("\n |       [2]. CARREGAR PERSONAGEM        | ");
           System.out.printf("\n |       [3]. EDITAR PERSONAGEM          | ");
-          System.out.printf("\n |       [4]. SAIR                       | ");
+          System.out.printf("\n |       [4]. DELETAR PERSONAGEM         | ");
+          System.out.printf("\n |       [5]. SAIR                       | ");
           System.out.printf("\n *---------------------------------------* ");
 
           System.out.printf("\n\n  Digite sua escolha: ");
@@ -88,7 +89,7 @@ class Main{
             Sistema.esperar();
             break;
           }  
-
+          //Criando personagem 
           if (respostaMenuSecundario == 1){
             if (b.criarPersonagem() == false){
               System.out.printf("\n\n   VOLTANDO PARA O MENU DO JOGADOR %d", i);
@@ -97,6 +98,7 @@ class Main{
             }
 
           }
+          //Carregar Personagem
           else if (respostaMenuSecundario == 2){
             if (b.carregarPersonagem() == false){
               System.out.printf("\n\n   VOLTANDO PARA O MENU DO JOGADOR %d", i);
@@ -104,10 +106,24 @@ class Main{
               i--;
             }
           }
+          //Editar personagem 
           else if (respostaMenuSecundario == 3){
-            System.out.printf("\n Editar Personagem ");
+            if (b.editarPersonagem() == false){
+              System.out.printf("\n\n   VOLTANDO PARA O MENU DO JOGADOR %d", i);
+              Sistema.esperar();
+            }
+            i--;
           }
+          // Excluir Personagem
           else if (respostaMenuSecundario == 4){
+            if (b.excluirPersonagem() == false){
+              System.out.printf("\n\n   VOLTANDO PARA O MENU DO JOGADOR %d", i);
+              Sistema.esperar();
+            }
+            i--;
+          }
+          // SAIR Menu Secundario
+          else if (respostaMenuSecundario == 5){
             personagemCarregados = false;
             System.out.printf("\n\n  VOLTANDO PARA O MENU PRINCIPAL");
             Sistema.esperar();
