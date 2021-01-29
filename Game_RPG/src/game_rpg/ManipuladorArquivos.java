@@ -1,6 +1,9 @@
 import java.io.*;
 import java.util.*;
 
+// Funcionalidade da Classe:
+//  Realizar e Coordenar Operações com Arquivos
+
 public class ManipuladorArquivos{
   
   // Salvando Personagem
@@ -50,8 +53,9 @@ public class ManipuladorArquivos{
     }
 
   }
+  
 
-
+  // Ler Arquivo de um Persongem e Mostrar seus Atributos
   public void lerArquivo(String caminho){
 
     try {
@@ -89,9 +93,10 @@ public class ManipuladorArquivos{
       file.close();
     }
     catch (FileNotFoundException e){
-      System.out.println("Arquivo não encontrado1");
+      System.out.println("Arquivo não encontrado");
     }
 
   }
- 
+
+
 }
