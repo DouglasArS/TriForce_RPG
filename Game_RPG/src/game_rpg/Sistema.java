@@ -1,22 +1,25 @@
 import java.util.*;
 
+// Funcionalidade da Classe:
+//  Coordenar Sistemas Dinâmicos do Jogo
+
 public class Sistema{
   
-  // Pausa o Programa por Segundos
+  // Pausar o Programa por Segundos
   static void esperar(){
     try { 
-      Thread.sleep(2000); // 10000ms = 10s 
+      Thread.sleep(2000); // 2000ms = 2s 
     } catch(InterruptedException ex){
       System.exit(0);
     }
   }
   
-  // Limpa a Tela Pulando Linhas
+  // Limpar a Tela Pulando Linhas
   static void limparTela(){
     for(int x = 0; x < 100; x++){ System.out.printf("\n"); }
   }
   
-  // Gera Sequência Aleatória de Personagens
+  // Gerar Sequência Aleatória de Personagens
   static Integer[] rodadaAleatoria(int quantidade_personagens){
     
     Integer[] vetorAleatorio = new Integer[quantidade_personagens];
