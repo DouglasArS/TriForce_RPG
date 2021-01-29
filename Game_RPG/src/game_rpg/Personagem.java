@@ -1,11 +1,14 @@
 import java.util.*;
 
+// Funcionalidade da Classe:
+//  Servir como modelo para as Classes Arqueiro, Guerreiro, Mago.
+
 public abstract class Personagem{
   private String nome;
   private int tribo; // Fogo [1] - Água [2] - Planta [3]
   private int classe; // Guerreiro [1] - Arqueiro [2] - Mago [3]
 
-  private int vida = 200;
+  private int vida = 50;
   private int ataque;
   private int defesa;
   private int defesaAtivada = 0; // [1] Ativada - [0] Desativada
@@ -17,15 +20,15 @@ public abstract class Personagem{
     this.tribo = tribo;
     this.classe = classe;
 
-    if (classe == 1) {
-      this.ataque = 25;
+    if (classe == 1) { // Guerreiro - Nivel Ataque e Defesa
+      this.ataque = 20;
       this.defesa = 2;
     }
-    else if (classe == 2) {
+    else if (classe == 2) { // Arqueiro - Nivel Ataque e Defesa
       this.ataque = 15;
       this.defesa = 5;
     }
-    else if (classe == 3){
+    else if (classe == 3){ // Mago - Nivel Ataque e Defesa
       this.ataque = 10;
       this.defesa = 7;
     }
