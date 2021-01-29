@@ -6,5 +6,8 @@ public interface FuncionalidadesBatalha
   public void mostrarPersonagens();
   public int personagemVivos();
   public void luta();
-  public void criarPersonagem();
+  public boolean criarPersonagem();
+  public void getNomesArquivos();
+  public void mostrarArquivos();
+  public boolean carregarPersonagem();
 }
