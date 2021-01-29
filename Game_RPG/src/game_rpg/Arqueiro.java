@@ -1,7 +1,11 @@
-import java.util.*;
+import java.util.InputMismatchException;
+import java.util.Scanner;
+import java.util.Vector;
 
-//poder especial- Atacar  7 de vida para 3 adversários
-//causar 21 de dano divido em 3 personagens
+// Ataque = 15
+// Defesa = 5
+// Poder Especial - Causar 21 de dano divido em até 3 personagens (3 ataques de 7 de dano )
+
 class Arqueiro extends Personagem{
 
   public Arqueiro(String nome, int tribo, int classe){
@@ -15,7 +19,7 @@ class Arqueiro extends Personagem{
     int openente2;
     int openente3;
 
-    // tratamento de erro
+    // Tratamento de Exceções das variáveis Oponentes (Alvos Inválidos/Inexistentes)
     try{
       System.out.printf("\n  Oponente1: ");
       openente1 = teclado.nextInt()-1;
@@ -27,7 +31,7 @@ class Arqueiro extends Personagem{
 
       System.out.printf("\n  Oponente3: ");
       openente3 = teclado.nextInt()-1;
-      personagem_partida.get(openente3); 
+      personagem_partida.get(openente3);
 
     } catch (InputMismatchException e) {
       System.out.printf("\n\n  VALOR INVALIDO");
@@ -37,6 +41,7 @@ class Arqueiro extends Personagem{
       return false;
     }
     
+    // Execução do Poder Especial
     personagem_partida.get(openente1).setVida(personagem_partida.get(openente1).getVida()-7);
     personagem_partida.get(openente2).setVida(personagem_partida.get(openente2).getVida()-7);
     personagem_partida.get(openente3).setVida(personagem_partida.get(openente3).getVida()-7);
