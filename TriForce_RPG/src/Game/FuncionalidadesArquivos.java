@@ -4,4 +4,3 @@ public interface FuncionalidadesArquivos
   public void salvarNomesArquivos(String nomesArquivos);
   public void lerArquivo(String caminho);
 }
-//:)
