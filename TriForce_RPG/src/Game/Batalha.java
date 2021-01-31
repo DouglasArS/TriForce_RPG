@@ -346,7 +346,7 @@ public class Batalha implements FuncionalidadesBatalha{
     System.out.printf("\n |            TRIBOS                     | ");
     System.out.printf("\n *---------------------------------------* ");
     System.out.printf("\n |       [1]. FOGO                       | ");
-    System.out.printf("\n |       [2]. ÁGUA                       | ");
+    System.out.printf("\n |       [2]. AGUA                       | ");
     System.out.printf("\n |       [3]. PLANTA                     | ");
     System.out.printf("\n *---------------------------------------* ");
 
@@ -371,7 +371,7 @@ public class Batalha implements FuncionalidadesBatalha{
     System.out.printf("\n |               CLASSES                  | "); 
     System.out.printf("\n *----------------------------------------* "); 
     System.out.printf("\n *----------------------------------------* ");
-    System.out.printf("\n      NÍVEL:       | ATAQUE  | DEFESA |     "); 
+    System.out.printf("\n      NIVEL:       | ATAQUE  | DEFESA |     "); 
     System.out.printf("\n *----------------------------------------* ");
     System.out.printf("\n    [1]. GUERREIRO |   20    |   30   |     ");
     System.out.printf("\n    [2]. ARQUEIRO  |   15    |   50   |     ");
