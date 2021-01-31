@@ -10,4 +10,6 @@ public interface FuncionalidadesBatalha
   public void getNomesArquivos();
   public void mostrarArquivos();
   public boolean carregarPersonagem();
+  public boolean excluirPersonagem();
+  public boolean editarPersonagem();
 }
