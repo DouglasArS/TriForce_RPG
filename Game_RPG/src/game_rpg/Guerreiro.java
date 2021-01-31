@@ -1,6 +1,4 @@
-import java.util.InputMismatchException;
-import java.util.Scanner;
-import java.util.Vector;
+import java.util.*;
 
 // Ataque = 20
 // Defesa = 7
@@ -20,7 +18,7 @@ class Guerreiro extends Personagem{
     try{
       System.out.printf("\n Digite seu oponente: ");
       openente1 = teclado.nextInt()-1;
-      personagem_partida.get(openente1); 
+      personagem_partida.get(openente1);
     } catch (InputMismatchException e) {
       System.out.printf("\n\n  OPONENTE INVALIDO");
       return false;
@@ -35,4 +33,5 @@ class Guerreiro extends Personagem{
 
     return true;
   }
+  
 }
