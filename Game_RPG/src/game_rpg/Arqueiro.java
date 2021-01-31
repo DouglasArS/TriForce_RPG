@@ -1,6 +1,4 @@
-import java.util.InputMismatchException;
-import java.util.Scanner;
-import java.util.Vector;
+import java.util.*;
 
 // Ataque = 15
 // Defesa = 5
@@ -48,4 +46,5 @@ class Arqueiro extends Personagem{
 
     return true;
   }
+  
 }
