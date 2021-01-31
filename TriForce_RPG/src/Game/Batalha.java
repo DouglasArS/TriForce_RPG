@@ -119,7 +119,7 @@ public class Batalha implements FuncionalidadesBatalha{
       }else if(personagem_partida.get(i).getTribo() == 2){
         System.out.printf("\n Tribo: Água");
       }else if (personagem_partida.get(i).getTribo() == 3){
-        System.out.printf("\n Tribo: Terra");
+        System.out.printf("\n Tribo: Planta");
       }
       
       if (personagem_partida.get(i).getClasse() == 1){
@@ -622,10 +622,10 @@ public class Batalha implements FuncionalidadesBatalha{
       arq.close();
     }
     catch (FileNotFoundException e){
-      System.out.println("Arquivo não encontrado2");
+      System.out.println("Arquivo não encontrado");
     }
     catch (IOException e) {
-      System.out.println("Erro na leitura do arquivo1");
+      System.out.println("Erro na leitura do arquivo");
     }
 
     // Atualizando Vetor NomesArquivos
