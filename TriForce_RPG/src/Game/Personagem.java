@@ -8,7 +8,7 @@ public abstract class Personagem{
   private int tribo; // Fogo [1] - Água [2] - Planta [3]
   private int classe; // Guerreiro [1] - Arqueiro [2] - Mago [3]
 
-  private int vida = 50;
+  private int vida = 200;
   private int ataque;
   private int defesa;
   private int defesaAtivada = 0; // [1] Ativada - [0] Desativada
@@ -22,17 +22,17 @@ public abstract class Personagem{
 
     if (classe == 1) { // Guerreiro - Nivel Ataque e Defesa
       this.ataque = 20;
-      this.defesa = 2;
+      this.defesa = 10;
     }
     else if (classe == 2) { // Arqueiro - Nivel Ataque e Defesa
       this.ataque = 15;
-      this.defesa = 5;
+      this.defesa = 15;
     }
     else if (classe == 3){ // Mago - Nivel Ataque e Defesa
       this.ataque = 10;
-      this.defesa = 7;
+      this.defesa = 20;
     }
-
+    
   }
 
   // Get e Set Nome
@@ -90,7 +90,7 @@ public abstract class Personagem{
   public void setDefesaAtivada(int defesaAtivada){
     this.defesaAtivada = defesaAtivada;
   }
-  
+
   // Get e Set Percentual Power Up
   public int getPercentualPowerUp(){
     return this.percentualPowerUp; 
@@ -98,7 +98,7 @@ public abstract class Personagem{
   public void setPercentualPowerUp(int percentualPowerUp){
     this.percentualPowerUp = percentualPowerUp;
   }
-
+  
   // Get e Set vidaRetirada
   public int getVidaRetirada(){
     return this.vidaRetirada; 
