@@ -1,5 +1,4 @@
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.util.*;
 
 class Main{
   public static void main(String[] args){
@@ -32,27 +31,25 @@ class Main{
       }
 
       if (respostaMenuPrincipal == 1){
-        Batalha b = new Batalha(); // Objeto para acessar métodos da classe Batalha a partir da Main
+        Batalha batalha = new Batalha(); // Objeto para acessar métodos da classe Batalha a partir da Main
 
         // Carregando Nomes dos Arquivo no Vetor Nomes_Arquivos
-        b.getNomesArquivos();
-
-        int i = 1;
+        batalha.getNomesArquivos();
 
         System.out.printf("\n Digite a quantidade de jogadores: ");
 
-        int numero_jogador;
+        int numeroJogador;
         
-        // Tratamento de Exceções da variável numero_jogador
+        // Tratamento de Exceções da variável numeroJogador
         try{
-          numero_jogador = teclado.nextInt();
+          numeroJogador = teclado.nextInt();
         } catch (InputMismatchException e) {
           System.out.printf("\n\n   VALOR INVALIDO");
           System.out.printf("\n\n   VOLTANDO PARA MENU PRINCIPAL");
           Sistema.esperar();
           continue;
         }
-        if (numero_jogador < 2){
+        if (numeroJogador < 2){
           System.out.printf("\n\n  NUMERO DE JOGADORES INSUFICIENTE");
           System.out.printf("\n\n   VOLTANDO PARA MENU PRINCIPAL");
           Sistema.esperar();
@@ -63,8 +60,10 @@ class Main{
         // Jogo iniciará quando houver a certeza de que os Personagens foram carregados
         boolean personagemCarregados = true;
 
+        int i = 1; // Variável de Controle do While - 1 até (Numero de Jogador + 1)
+        
         while(true){ 
-          if (i == (numero_jogador + 1)){
+          if (i == (numeroJogador + 1)){
             break;
           }
 
@@ -98,7 +97,7 @@ class Main{
 
           // Criar personagem 
           if (respostaMenuSecundario == 1){
-            if (b.criarPersonagem() == false){
+            if (batalha.criarPersonagem() == false){
               System.out.printf("\n\n   VOLTANDO PARA O MENU DO JOGADOR %d", i);
               Sistema.esperar();
               i--;
@@ -107,7 +106,7 @@ class Main{
           }
           // Carregar Personagem
           else if (respostaMenuSecundario == 2){
-            if (b.carregarPersonagem() == false){
+            if (batalha.carregarPersonagem() == false){
               System.out.printf("\n\n   VOLTANDO PARA O MENU DO JOGADOR %d", i);
               Sistema.esperar();
               i--;
@@ -115,7 +114,7 @@ class Main{
           }
           // Editar personagem 
           else if (respostaMenuSecundario == 3){
-            if (b.editarPersonagem() == false){
+            if (batalha.editarPersonagem() == false){
               System.out.printf("\n\n   VOLTANDO PARA O MENU DO JOGADOR %d", i);
               Sistema.esperar();
             }
@@ -123,7 +122,7 @@ class Main{
           }
           // Excluir Personagem
           else if (respostaMenuSecundario == 4){
-            if (b.excluirPersonagem() == false){
+            if (batalha.excluirPersonagem() == false){
               System.out.printf("\n\n   VOLTANDO PARA O MENU DO JOGADOR %d", i);
               Sistema.esperar();
             }
@@ -151,7 +150,7 @@ class Main{
         // Tratamento de Erro
         // Jogo iniciará quando houver a certeza de que os Personagens foram carregados
         if (personagemCarregados == true){
-          b.luta(); 
+          batalha.luta(); 
         }
 
       }
