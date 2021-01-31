@@ -6,9 +6,9 @@ import java.io.*;
 
 public class Batalha implements FuncionalidadesBatalha{
   
-  Vector<Personagem> personagem_partida = new Vector<Personagem>(); // Vetor Personagem da Partida
+  Vector<Personagem> personagem_partida = new Vector<Personagem>(); // Vetor Personagens da Partida
   
-  Vector<String> nomes_arquivos = new Vector<String>(); // Vetor Nomes Arquivos
+  Vector<String> nomes_arquivos = new Vector<String>(); // Vetor Nomes dos Arquivos
   
   // Ação Atacar
   @Override
@@ -53,12 +53,22 @@ public class Batalha implements FuncionalidadesBatalha{
       Sistema.esperar();
     }
     else{
-      System.out.printf("\n  %s ATACOU %s COM A DEFESA ATIVADA\n", personagem_partida.get(atacante).getNome(), personagem_partida.get(oponente).getNome());
+      // Retirando do Ataque o Nivel de Defesa do Oponente
+      ataqueFinal -= personagem_partida.get(oponente).getDefesa();
+
+      if (ataqueFinal > 0){
+        personagem_partida.get(oponente).setVida(personagem_partida.get(oponente).getVida() - ataqueFinal);
+        
+        System.out.printf("\n  %s ATACOU %s (DEFESA ATIVADA) COM %d DE ATAQUE\n", personagem_partida.get(atacante).getNome(), personagem_partida.get(oponente).getNome(), ataqueFinal);
+      }
+      else{
+        System.out.printf("\n  %s DEFENDEU COMPLETAMENTE O ATAQUE\n", personagem_partida.get(oponente).getNome());
+      }
 
       Sistema.esperar();
     }
 
-    // Acrescentando Dano em Vida Retirada
+    // Acrescentando Dano em Vida Retirada (Para a ativação do Poder Especial)
     personagem_partida.get(atacante).setVidaRetirada(ataqueFinal);
   }
 
@@ -66,22 +76,10 @@ public class Batalha implements FuncionalidadesBatalha{
   // Ação Defender
   @Override
   public void defender(int jogador){
+    personagem_partida.get(jogador).setDefesaAtivada(1);
+    System.out.printf("\n %s ATIVOU A DEFESA\n", personagem_partida.get(jogador).getNome());
 
-    // Defesa probabilística - Numero de 1 a 10
-    Random r = new Random();
-    int result = r.nextInt(10) + 1;
-
-    if (result <= this.personagem_partida.get(jogador).getDefesa()){
-      personagem_partida.get(jogador).setDefesaAtivada(1);
-      System.out.printf("\n %s ATIVOU A DEFESA\n", personagem_partida.get(jogador).getNome());
-
-      Sistema.esperar();
-    }
-    else{
-      System.out.printf("\n %s NAO CONSEGUIU SE DEFENDER\n", personagem_partida.get(jogador).getNome());
-
-      Sistema.esperar();
-    }
+    Sistema.esperar();
   }
 
 
@@ -175,9 +173,9 @@ public class Batalha implements FuncionalidadesBatalha{
     int rodada = 0;
 
     while(personagemVivos() > 1){
-
+      
       rodada += 1;
-
+      
       // Vetor Sequência Aleatoria da Rodada
       Integer[] vetorAleatorio = Sistema.rodadaAleatoria(personagem_partida.size());
 
@@ -226,7 +224,7 @@ public class Batalha implements FuncionalidadesBatalha{
         System.out.printf("\n *---------------------------------------* ");
 
         System.out.printf("\n Digite sua escolha: ");
-        int escolha = 1;
+        int escolha = 0;
         
         // Tratamento de Exceções da variável escolha
         try{
@@ -244,8 +242,6 @@ public class Batalha implements FuncionalidadesBatalha{
           System.out.printf("\n Digite seu oponente: ");
           int numOponente = 0;
 
-          boolean ataqueSucesso = true;
-
           // Tratamento de Exceções da variável numOponente (Alvo Inválido/Inexistente)
           try{
             numOponente = teclado.nextInt();
@@ -253,13 +249,15 @@ public class Batalha implements FuncionalidadesBatalha{
           } catch (InputMismatchException e){
             System.out.printf("\n\n   OPONENTE INVALIDO");
             Sistema.esperar();
+            i--;
           } catch (ArrayIndexOutOfBoundsException e){
             System.out.printf("\n\n   OPONENTE INEXISTENTE");
             Sistema.esperar();
+            i--;
           }
           
           this.atacar(vetorAleatorio[i], numOponente-1);
-          
+    
           // Se Depois do Ataque Houver Apenas 1 Jogador - Fim do Jogo
           if (personagemVivos() == 1){
             break;
@@ -289,7 +287,7 @@ public class Batalha implements FuncionalidadesBatalha{
       
           }
           else{
-            System.out.printf("\n FALTA CAUSAR %d DANO PARA DESBLOQUEAR O ATAQUE ESPECIAL",personagem_partida.get(vetorAleatorio[i]).getVidaRetirada());
+            System.out.printf("\n FALTA CAUSAR %d DANO PARA DESBLOQUEAR O ATAQUE ESPECIAL",(100 - personagem_partida.get(vetorAleatorio[i]).getVidaRetirada()));
             i--;
 
             Sistema.esperar();
@@ -327,7 +325,7 @@ public class Batalha implements FuncionalidadesBatalha{
       }
 
     }
-    
+
   }
   
   // Criar Personagens
@@ -351,7 +349,7 @@ public class Batalha implements FuncionalidadesBatalha{
     System.out.printf("\n |       [2]. ÁGUA                       | ");
     System.out.printf("\n |       [3]. PLANTA                     | ");
     System.out.printf("\n *---------------------------------------* ");
-            
+
     System.out.printf("\n\n Digite sua tribo: "); 
     
     int tribo; 
@@ -400,26 +398,56 @@ public class Batalha implements FuncionalidadesBatalha{
 
     // Criando e Inicializando o Personagem
     if (classe == 1){
-      Guerreiro p = new Guerreiro(nome, tribo, classe);
-      this.personagem_partida.add(p);
+      Guerreiro personagem = new Guerreiro(nome, tribo, classe);
+      this.personagem_partida.add(personagem);
     }
     else if (classe == 2){
-      Arqueiro p = new Arqueiro(nome, tribo, classe);
-      this.personagem_partida.add(p);
+      Arqueiro personagem = new Arqueiro(nome, tribo, classe);
+      this.personagem_partida.add(personagem);
     }
     else if(classe == 3){
-      Mago p = new Mago(nome, tribo, classe);
-      this.personagem_partida.add(p);
+      Mago personagem = new Mago(nome, tribo, classe);
+      this.personagem_partida.add(personagem);
     }
     
-    // Manipulacao de arquivos
+    // Menu Salvar Personagem
+    Sistema.limparTela();
+
+    System.out.printf("\n *---------------------------------------* ");
+    System.out.printf("\n |      DESEJA SALVAR O PERSONAGEM ?     | ");
+    System.out.printf("\n *---------------------------------------* ");
+    System.out.printf("\n |        [1]. SIM                       | ");
+    System.out.printf("\n |        [2]. NÃO                       | ");
+    System.out.printf("\n *---------------------------------------* ");
+
+    System.out.printf("\n\n Digite sua escolha: ");
+    int escolhaSalvar = 0;
+
+    try{
+      escolhaSalvar = teclado.nextInt();
+    } catch (InputMismatchException e) {
+      System.out.printf("\n\n   VALOR INVALIDO");
+      System.out.printf("\n\n   POR PADRÃO SEU PERSONAGEM FOI SALVO");
+      escolhaSalvar = 1;
+      Sistema.esperar();
+    }
+
+    if ((escolhaSalvar < 1) || (escolhaSalvar > 2)){
+      System.out.printf("\n\n   VALOR INVALIDO");
+      System.out.printf("\n\n   POR PADRÃO SEU PERSONAGEM FOI SALVO");
+      escolhaSalvar = 1;
+      Sistema.esperar();
+    }
     
-    ManipuladorArquivos manipulador = new ManipuladorArquivos();
-    
-    manipulador.salvarPersonagem(nome, tribo, classe);
-    
-    manipulador.salvarNomesArquivos(nome);
-    
+    if (escolhaSalvar == 1){
+      // Salvando Personagem
+      ManipuladorArquivos manipulador = new ManipuladorArquivos();
+        
+      manipulador.salvarPersonagem(nome, tribo, classe);
+        
+      manipulador.salvarNomesArquivos(nome);
+    }
+
     return true; 
   }
 
@@ -492,6 +520,7 @@ public class Batalha implements FuncionalidadesBatalha{
     
     int numPersonagem;
     
+    // Tratamento de Exceções da variável numPersonagem
     try{
       numPersonagem = teclado.nextInt();
     } catch (InputMismatchException e) {
@@ -515,18 +544,18 @@ public class Batalha implements FuncionalidadesBatalha{
 
       file.close();
 
-      // Criando e Inicializando o p
+      // Criando e Inicializando o Personagem
       if (classe == 1){
-        Guerreiro p = new Guerreiro(nome, tribo, classe);
-        this.personagem_partida.add(p);
+        Guerreiro personagem = new Guerreiro(nome, tribo, classe);
+        this.personagem_partida.add(personagem);
       }
       else if (classe == 2){
-        Arqueiro p = new Arqueiro(nome, tribo, classe);
-        this.personagem_partida.add(p);
+        Arqueiro personagem = new Arqueiro(nome, tribo, classe);
+        this.personagem_partida.add(personagem);
       }
       else if(classe == 3){
-        Mago p = new Mago(nome, tribo, classe);
-        this.personagem_partida.add(p);
+        Mago personagem = new Mago(nome, tribo, classe);
+        this.personagem_partida.add(personagem);
       }
 
     }
@@ -540,6 +569,7 @@ public class Batalha implements FuncionalidadesBatalha{
   }
 
   // Excluir Arquivo
+  @Override
   public boolean excluirPersonagem(){
     Scanner teclado = new Scanner(System.in);
 
@@ -573,6 +603,7 @@ public class Batalha implements FuncionalidadesBatalha{
       return false;
     }
 
+    // Excluindo Personagem Salvo
     File file = new File("ArquivosTexto/"+nomes_arquivos.get(numPersonagem-1)+".txt");
     file.delete();
 
@@ -605,7 +636,12 @@ public class Batalha implements FuncionalidadesBatalha{
   }
 
   // Editar Personagem
+  @Override
   public boolean editarPersonagem(){
+
+    // Atualizando Vetor NomesArquivos
+    nomes_arquivos = new Vector<String>();
+    this.getNomesArquivos();
 
     Scanner teclado = new Scanner(System.in);
 
@@ -623,6 +659,7 @@ public class Batalha implements FuncionalidadesBatalha{
     
     int numPersonagem;
     
+    // Tratamento de Exceções da variável numPersonagem
     try{
       numPersonagem = teclado.nextInt();
     } catch (InputMismatchException e) {
@@ -655,6 +692,7 @@ public class Batalha implements FuncionalidadesBatalha{
       return false;
     }
   
+    // Variáveis que indicam se houve alteração
     boolean nomeEditado = false;
     boolean triboEditado = false;
     boolean classeEditado = false;
@@ -672,7 +710,7 @@ public class Batalha implements FuncionalidadesBatalha{
       System.out.printf("\n |       [2]. EDITAR TRIBO               | ");
       System.out.printf("\n |       [3]. EDITAR CLASSE              | ");
       
-      if ((nomeEditado == true) && (triboEditado = true) && (classeEditado = true)){
+      if ((nomeEditado == true) || (triboEditado == true) || (classeEditado == true)){
         System.out.printf("\n |       [4]. SALVAR                     | ");
       }
       else{
@@ -684,6 +722,7 @@ public class Batalha implements FuncionalidadesBatalha{
       int escolhaEditar;
       System.out.printf("\n\n  Digite uma opcao: ");
 
+      // Tratamento de Exceções da variável escolhaEditar
       try{
         escolhaEditar = teclado.nextInt();
       } catch (InputMismatchException e) {
@@ -700,13 +739,18 @@ public class Batalha implements FuncionalidadesBatalha{
         break;
       }
 
+      // Tipos de Alterações Disponíveis:
       if (escolhaEditar == 1){
+        nomeEditado = true;
+
         System.out.printf("\n\n Digite o Novo Nome: ");
         novoNome = teclado.nextLine();
         novoNome = teclado.nextLine();
-        nomeEditado = true;
       }
       else if (escolhaEditar == 2){
+
+        triboEditado = true;
+
         System.out.printf("\n *---------------------------------------* ");
         System.out.printf("\n |            TRIBOS                     | ");
         System.out.printf("\n *---------------------------------------* ");
@@ -716,9 +760,21 @@ public class Batalha implements FuncionalidadesBatalha{
         System.out.printf("\n *---------------------------------------* ");
 
         System.out.printf("\n\n Digite a nova Tribo: ");
-        tribo = teclado.nextInt();
+
+        // Tratamento de Exceções da variável tribo
+        try{
+          tribo = teclado.nextInt();
+        } catch (InputMismatchException e) {
+          System.out.printf("\n\n   OPCAO INVALIDA");
+          System.out.printf("\n   VOLTANDO PARA O MENU DO JOGADOR ");
+          Sistema.esperar();
+          break;
+        }
+
       }
       else if (escolhaEditar == 3){
+        classeEditado = true;
+
         System.out.printf("\n *----------------------------------------* ");
         System.out.printf("\n |               CLASSES                  | "); 
         System.out.printf("\n *----------------------------------------* "); 
@@ -731,7 +787,17 @@ public class Batalha implements FuncionalidadesBatalha{
         System.out.printf("\n *----------------------------------------* ");
 
         System.out.printf("\n\n Digite a nova Classe: ");
-        classe = teclado.nextInt();
+
+        // Tratamento de Exceções da variável classe
+        try{
+          classe = teclado.nextInt();
+        } catch (InputMismatchException e) {
+          System.out.printf("\n\n   OPCAO INVALIDA");
+          System.out.printf("\n   VOLTANDO PARA O MENU DO JOGADOR ");
+          Sistema.esperar();
+          break;
+        }
+
       }
       else if (escolhaEditar == 4){
         break;
@@ -743,9 +809,41 @@ public class Batalha implements FuncionalidadesBatalha{
     
     // Nome Não Alterado - Criar Arquivo com mesmo Nome e Tribos e/ou Classes Diferentes
     if (nomeEditado == false){
+
+      // Atualizando Vetor NomesArquivos
+      nomes_arquivos = new Vector<String>();
+      this.getNomesArquivos();
+
+      // Reformulando nomesPersonagem.txt
+      try {
+        FileWriter arq = new FileWriter("ArquivosTexto/nomesPersonagem.txt");
+        
+        BufferedWriter buffWrite = new BufferedWriter(arq);
+        
+        for (int i = 0; i < nomes_arquivos.size(); i++){
+          if(i == numPersonagem-1){ continue; }
+          buffWrite.append(nomes_arquivos.get(i) + "\n");
+        }
+          
+        buffWrite.close();
+        arq.close();
+      }
+      catch (FileNotFoundException e){
+        System.out.println("Arquivo não encontrado");
+      }
+      catch (IOException e) {
+        System.out.println("Erro na leitura do arquivo");
+      }
+
       manipulador.salvarPersonagem(nome, tribo, classe);
       manipulador.salvarNomesArquivos(nome);
+
+      // Atualizando Vetor NomesArquivos
+      nomes_arquivos = new Vector<String>();
+      this.getNomesArquivos();
+      
     }
+    // Nome Alterado - Criar Novo Arquivo (com nome, tribo e/ou classes editadas) e Apagar Arquivo Antigo
     else{
       manipulador.salvarPersonagem(novoNome, tribo, classe);
       manipulador.salvarNomesArquivos(novoNome);
@@ -755,7 +853,6 @@ public class Batalha implements FuncionalidadesBatalha{
       this.getNomesArquivos();
 
       // Excluir Arquivo Antigo:
-
       File file = new File("ArquivosTexto/"+nomes_arquivos.get(numPersonagem-1)+".txt");
       file.delete();
 
