@@ -1,8 +1,8 @@
-import java.util.Vector;
+import java.util.*;
 
 // Ataque = 10
-// Defesa = 7
-// Poder Especial - Regenera 25 de vida
+// Defesa = 20
+// Poder Especial - Regenera 35 de vida
 
 class Mago extends Personagem{
   
@@ -13,7 +13,7 @@ class Mago extends Personagem{
   public boolean poderEspecial(int jogador, Vector<Personagem> personagem_partida){
     
     // Execução do Poder Especial
-    personagem_partida.get(jogador).setVida(personagem_partida.get(jogador).getVida()+25);
+    personagem_partida.get(jogador).setVida(personagem_partida.get(jogador).getVida()+35);
 
     return true;
   }
