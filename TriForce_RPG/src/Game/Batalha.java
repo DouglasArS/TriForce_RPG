@@ -472,7 +472,7 @@ public class Batalha implements FuncionalidadesBatalha{
 
     }
     catch (FileNotFoundException e){
-      System.out.println("Arquivo não encontrado");
+      System.out.println("Arquivo nao encontrado");
     }
     catch (IOException e ) {
       System.out.println("Erro na leitura do arquivo");
@@ -560,7 +560,7 @@ public class Batalha implements FuncionalidadesBatalha{
 
     }
     catch (FileNotFoundException e){
-      System.out.println("Arquivo não encontrado");
+      System.out.println("Arquivo nao encontrado");
       return false;
     }
 
@@ -622,7 +622,7 @@ public class Batalha implements FuncionalidadesBatalha{
       arq.close();
     }
     catch (FileNotFoundException e){
-      System.out.println("Arquivo não encontrado");
+      System.out.println("Arquivo nao encontrado");
     }
     catch (IOException e) {
       System.out.println("Erro na leitura do arquivo");
@@ -688,7 +688,7 @@ public class Batalha implements FuncionalidadesBatalha{
       file.close();
     }
     catch (FileNotFoundException e){
-      System.out.println("Arquivo não encontrado");
+      System.out.println("Arquivo nao encontrado");
       return false;
     }
   
