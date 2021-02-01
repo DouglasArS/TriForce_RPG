@@ -8,5 +8,5 @@ que visa a utilização de tecnicas de Programação Orientada a Objetos.
 Avaliação Final da Disciplina de Programação Estruturada e Orientada a Objeto (PEOO)
 
 ## Observações:
- - Projeto feito na IDE NetBeans.
+ - Projeto feito na IDE NetBeans (Versão: 8.2).
  - Caso deseje ultilizar outra IDE, a pasta ArquivosTexto deve ficar fora da pasta src.
