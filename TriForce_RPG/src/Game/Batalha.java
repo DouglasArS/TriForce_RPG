@@ -117,7 +117,7 @@ public class Batalha implements FuncionalidadesBatalha{
       if (personagem_partida.get(i).getTribo() == 1){
         System.out.printf("\n Tribo: Fogo");         
       }else if(personagem_partida.get(i).getTribo() == 2){
-        System.out.printf("\n Tribo: Água");
+        System.out.printf("\n Tribo: Agua");
       }else if (personagem_partida.get(i).getTribo() == 3){
         System.out.printf("\n Tribo: Planta");
       }
@@ -417,7 +417,7 @@ public class Batalha implements FuncionalidadesBatalha{
     System.out.printf("\n |      DESEJA SALVAR O PERSONAGEM ?     | ");
     System.out.printf("\n *---------------------------------------* ");
     System.out.printf("\n |        [1]. SIM                       | ");
-    System.out.printf("\n |        [2]. NÃO                       | ");
+    System.out.printf("\n |        [2]. NAO                       | ");
     System.out.printf("\n *---------------------------------------* ");
 
     System.out.printf("\n\n Digite sua escolha: ");
@@ -427,14 +427,14 @@ public class Batalha implements FuncionalidadesBatalha{
       escolhaSalvar = teclado.nextInt();
     } catch (InputMismatchException e) {
       System.out.printf("\n\n   VALOR INVALIDO");
-      System.out.printf("\n\n   POR PADRÃO SEU PERSONAGEM FOI SALVO");
+      System.out.printf("\n\n   POR PADRAO SEU PERSONAGEM FOI SALVO");
       escolhaSalvar = 1;
       Sistema.esperar();
     }
 
     if ((escolhaSalvar < 1) || (escolhaSalvar > 2)){
       System.out.printf("\n\n   VALOR INVALIDO");
-      System.out.printf("\n\n   POR PADRÃO SEU PERSONAGEM FOI SALVO");
+      System.out.printf("\n\n   POR PADRAO SEU PERSONAGEM FOI SALVO");
       escolhaSalvar = 1;
       Sistema.esperar();
     }
@@ -755,7 +755,7 @@ public class Batalha implements FuncionalidadesBatalha{
         System.out.printf("\n |            TRIBOS                     | ");
         System.out.printf("\n *---------------------------------------* ");
         System.out.printf("\n |       [1]. FOGO                       | ");
-        System.out.printf("\n |       [2]. ÁGUA                       | ");
+        System.out.printf("\n |       [2]. AGUA                       | ");
         System.out.printf("\n |       [3]. PLANTA                     | ");
         System.out.printf("\n *---------------------------------------* ");
 
@@ -829,7 +829,7 @@ public class Batalha implements FuncionalidadesBatalha{
         arq.close();
       }
       catch (FileNotFoundException e){
-        System.out.println("Arquivo não encontrado");
+        System.out.println("Arquivo nao encontrado");
       }
       catch (IOException e) {
         System.out.println("Erro na leitura do arquivo");
@@ -871,7 +871,7 @@ public class Batalha implements FuncionalidadesBatalha{
         arq.close();
       }
       catch (FileNotFoundException e){
-        System.out.println("Arquivo não encontrado");
+        System.out.println("Arquivo nao encontrado");
       }
       catch (IOException e) {
         System.out.println("Erro na leitura do arquivo");
